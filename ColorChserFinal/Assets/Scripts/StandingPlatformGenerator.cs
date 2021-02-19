@@ -16,7 +16,7 @@ public class StandingPlatformGenerator : MonoBehaviour
     public float platformMinLength;
     public float platformMaxLength;
 
-    private float hightChange;
+    //private float hightChange;
     private float maxHightChange;
     
     private float numOfBlocksCreated;
@@ -37,14 +37,15 @@ public class StandingPlatformGenerator : MonoBehaviour
         chancesArr = new int[] {(int)(chanceForGreen*10.0f),(int)(chanceForRed*10.0f),(int)(chanceForBlack*10.0f)};
     }
 
-    void setHightChange(){
-        hightChange = transform.position.y + Random.Range(platformMinVerticalDistance,platformMaxVerticalDistance);
+    float setHightChange(){
+        float hightChange = transform.position.y + Random.Range(platformMinVerticalDistance,platformMaxVerticalDistance);
         if (hightChange > platformMaxVerticalDistance || hightChange < platformMinVerticalDistance){
             hightChange = 0;
         }
+        return hightChange;
     }
 
-    float setPlatfromPositionAndLength(){
+    float setPlatfromPositionAndLength(float hightChange){
         distanceBetween = Random.Range(platfromMinHorizontalDistance,platfromMaxHorizontalDistance);
         transform.position = new Vector3(transform.position.x + distanceBetween,hightChange,transform.position.z);
         return Random.Range(platformMinLength,platformMaxLength);
@@ -60,40 +61,29 @@ public class StandingPlatformGenerator : MonoBehaviour
 
     public int GetRandomWeightedIndex(int[] weights)
 {
-    // Get the total sum of all the weights.
     int weightSum = 0;
     for (int i = 0; i < weights.Length; ++i)
     {
         weightSum += weights[i];
     }
- 
-    // Step through all the possibilities, one by one, checking to see if each one is selected.
     int index = 0;
     int lastIndex = weights.Length - 1;
     while (index < lastIndex)
     {
-        // Do a probability check with a likelihood of weights[index] / weightSum.
         if (Random.Range(0, weightSum) < weights[index])
         {
             return index;
         }
- 
-        // Remove the last item from the sum of total untested weights and try again.
-        weightSum -= weights[index++];
+         weightSum -= weights[index++];
     }
  
-    // No other item was selected, so return very last index.
     return index;
 }
 
     void Update()
     {
         if (transform.position.x < generatingPoint.position.x){
-            
-            setHightChange();
-            //float platformLength = setPlatfromPositionAndLength()
-            createPlatform(setPlatfromPositionAndLength());
-            //transform.position = new Vector3(transform.position.x,yInitPosition,transform.position.z);
+            createPlatform(setPlatfromPositionAndLength(setHightChange()));
         }
     }
 
