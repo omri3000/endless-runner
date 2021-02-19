@@ -20,11 +20,21 @@ public class StandingPlatformGenerator : MonoBehaviour
     private float maxHightChange;
     
     private float numOfBlocksCreated;
+
+    [Range(0.0f, 1.0f)]
+    public float chanceForGreen;
+    [Range(0.0f, 1.0f)]
+    public float chanceForRed;
+    [Range(0.0f, 1.0f)]
+    public float chanceForBlack;
+
+    private int[] chancesArr;
     
     void Start()
     {
         numOfBlocksCreated = 0;
         yInitPosition = transform.position.y;
+        chancesArr = new int[] {(int)(chanceForGreen*10.0f),(int)(chanceForRed*10.0f),(int)(chanceForBlack*10.0f)};
     }
 
     void setHightChange(){
@@ -41,11 +51,40 @@ public class StandingPlatformGenerator : MonoBehaviour
     }
 
     void createPlatform(float length){
-        GameObject typeofBlockToInstance = platformTypes[Random.Range(0,platformTypes.Length)];
+        int typeofBlockToInstance = GetRandomWeightedIndex(chancesArr);
+        //platformTypes[Random.Range(0,platformTypes.Length)];
         for(int i = 0; i < length; i++){
-        Instantiate(typeofBlockToInstance,new Vector3(transform.position.x,transform.position.y + i,transform.position.z),transform.rotation);
+        Instantiate(platformTypes[typeofBlockToInstance],new Vector3(transform.position.x,transform.position.y + i,transform.position.z),transform.rotation);
         }
     }
+
+    public int GetRandomWeightedIndex(int[] weights)
+{
+    // Get the total sum of all the weights.
+    int weightSum = 0;
+    for (int i = 0; i < weights.Length; ++i)
+    {
+        weightSum += weights[i];
+    }
+ 
+    // Step through all the possibilities, one by one, checking to see if each one is selected.
+    int index = 0;
+    int lastIndex = weights.Length - 1;
+    while (index < lastIndex)
+    {
+        // Do a probability check with a likelihood of weights[index] / weightSum.
+        if (Random.Range(0, weightSum) < weights[index])
+        {
+            return index;
+        }
+ 
+        // Remove the last item from the sum of total untested weights and try again.
+        weightSum -= weights[index++];
+    }
+ 
+    // No other item was selected, so return very last index.
+    return index;
+}
 
     void Update()
     {
