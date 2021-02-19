@@ -5,15 +5,13 @@ public class ScoreManager : MonoBehaviour
 {
     public Text scoreText;
     public Text highScoreText;
+    public Text runFinalScore;
 
     private float _scoreCount;
     private float _hiScoreCount;
 
-
     public float pointsPerSecond;
     public bool scoreIncreasing;
-
-
 
     // Start is called before the first frame update
     void Start()
@@ -23,11 +21,20 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+    public void endOfRunDisplay(){
+        runFinalScore.text = "Your Score : " + Mathf.Round(_scoreCount);
+        scoreText.enabled = false;
+        highScoreText.enabled = false;
+    }
+
+
     // Update is called once per frame
     void Update()
     {
         if(scoreIncreasing){
         _scoreCount += pointsPerSecond * Time.deltaTime;
+        }else{
+         endOfRunDisplay();
         }
 
         if(_scoreCount > _hiScoreCount){

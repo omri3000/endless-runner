@@ -9,8 +9,10 @@ public class PlayerControl : MonoBehaviour
     private Collider2D myCollider;
     private Animator myAnimator;
     private ScoreManager scoreManager;
+    private Coroutine speedIncreaseCoroutine;
 
     public float moveSpeed;
+    public float speedIncreamentFactor;
     public float jumpForce;
     public float jumpTime;
     public LayerMask whatIsGround; 
@@ -28,13 +30,15 @@ public class PlayerControl : MonoBehaviour
         myCollider = GetComponent<Collider2D>();
         myAnimator = GetComponent<Animator>();
         scoreManager = FindObjectOfType<ScoreManager>();
+
+        speedIncreaseCoroutine = StartCoroutine(IncreaseSpeed());
     }
 
     // Update is called once per frame
     void Update()
     {
         _isGrounded = Physics2D.IsTouchingLayers(myCollider, whatIsGround);
-        myRigidBody.velocity = new Vector2(moveSpeed,myRigidBody.velocity.y);
+        myRigidBody.velocity = new Vector2((moveSpeed + speedIncreamentFactor*Time.deltaTime),myRigidBody.velocity.y);
 
         if(Input.GetKeyDown(KeyCode.Space) && _isGrounded){
 
@@ -59,7 +63,16 @@ public class PlayerControl : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other) {
         if(other.collider.name == "BottomBoundary"){
             scoreManager.scoreIncreasing = false;
+            StopCoroutine(speedIncreaseCoroutine);
             Destroy(gameObject);
+        }
+    }
+
+    private IEnumerator IncreaseSpeed(){
+        while(true){
+            moveSpeed += speedIncreamentFactor;
+            Debug.Log("speed");
+            yield return new WaitForSeconds(1);
         }
     }
 }
