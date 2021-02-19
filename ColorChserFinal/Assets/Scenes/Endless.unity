@@ -811,12 +811,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.06, y: 0.94, z: -216.19707}
+  m_LocalPosition: {x: 0.06, y: 3.69, z: -216.19707}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1819348926}
   - {fileID: 739154584}
   - {fileID: 3449282}
+  - {fileID: 982632751}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -928,6 +929,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 929771371}
   m_CullTransparentMesh: 0
+--- !u!1 &982632750
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 982632751}
+  m_Layer: 0
+  m_Name: StandingPlatformGenerationPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &982632751
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982632750}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 14.32, y: -3.71, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 519420032}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1258529959
 GameObject:
   m_ObjectHideFlags: 0
@@ -2259,19 +2290,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb4291429fdb4186a9cbddc6526ce59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generatingPoint: {fileID: 1819348926}
-  distanceBetween: 0
-  distanceBetweenMax: 5
-  distanceBetweenMin: 20
-  minHeight: 0
-  maxHeight: 0
-  maxHeightChange: 0
-  minHeightChange: 0
-  platformMinLength: 0
-  platformMaxLength: 4
   platformTypes:
   - {fileID: 3783613905407598878, guid: 322516d664c2f47ff9aae3b3dba9451f, type: 3}
   - {fileID: 8540871971725228790, guid: 2b37eed7e9f5e4ca1a24c0bbd0b8a814, type: 3}
+  - {fileID: 8540871971725228790, guid: 995b7ac9cc0af4e2783b55f44c3ebd3f, type: 3}
+  generatingPoint: {fileID: 982632751}
+  distanceBetween: 0
+  platfromMinHorizontalDistance: 4
+  platfromMaxHorizontalDistance: 15
+  platformMaxVerticalDistance: 3
+  platformMinVerticalDistance: 0
+  platformMinLength: 1
+  platformMaxLength: 4
 --- !u!4 &2119198956
 Transform:
   m_ObjectHideFlags: 0

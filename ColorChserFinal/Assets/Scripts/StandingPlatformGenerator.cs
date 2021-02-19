@@ -4,43 +4,57 @@ using UnityEngine;
 
 public class StandingPlatformGenerator : MonoBehaviour
 {
-    ///public GameObject greenPlatform;
-    //public GameObject redPlatform;
-    //public GameObject blackPlatform;
+    public GameObject[] platformTypes;
     public Transform generatingPoint;
     public float distanceBetween;
+    private float yInitPosition;
 
-    public float distanceBetweenMax;
-    public float distanceBetweenMin;
-
-    public float minHeight;
-    public float maxHeight;
-    public float maxHeightChange;
-    public float minHeightChange;
-    private float hightChange;
+    public float platfromMinHorizontalDistance;
+    public float platfromMaxHorizontalDistance;
+    public float platformMaxVerticalDistance;
+    public float platformMinVerticalDistance;
     public float platformMinLength;
     public float platformMaxLength;
-    private float numOfBlocksCreated;
-    public GameObject[] platformTypes;
 
+    private float hightChange;
+    private float maxHightChange;
+    
+    private float numOfBlocksCreated;
+    
     void Start()
     {
-        minHeight = transform.position.y;
-        hightChange = minHeight + Random.Range(0,maxHeightChange);
         numOfBlocksCreated = 0;
+        yInitPosition = transform.position.y;
+    }
+
+    void setHightChange(){
+        hightChange = transform.position.y + Random.Range(platformMinVerticalDistance,platformMaxVerticalDistance);
+        if (hightChange > platformMaxVerticalDistance || hightChange < platformMinVerticalDistance){
+            hightChange = 0;
+        }
+    }
+
+    float setPlatfromPositionAndLength(){
+        distanceBetween = Random.Range(platfromMinHorizontalDistance,platfromMaxHorizontalDistance);
+        transform.position = new Vector3(transform.position.x + distanceBetween,hightChange,transform.position.z);
+        return Random.Range(platformMinLength,platformMaxLength);
+    }
+
+    void createPlatform(float length){
+        GameObject typeofBlockToInstance = platformTypes[Random.Range(0,platformTypes.Length)];
+        for(int i = 0; i < length; i++){
+        Instantiate(typeofBlockToInstance,new Vector3(transform.position.x,transform.position.y + i,transform.position.z),transform.rotation);
+        }
     }
 
     void Update()
     {
         if (transform.position.x < generatingPoint.position.x){
-            distanceBetween = Random.Range(distanceBetweenMin,distanceBetweenMax);
-            transform.position = new Vector3(transform.position.x + distanceBetween,hightChange,transform.position.z);
-            float platformLength = Random.Range(platformMinLength,platformMaxLength);
-            GameObject typeofBlockToInstance = platformTypes[Random.Range(0,platformTypes.Length)];
-            for(int i = 0; i < platformLength; i++)
-        {
-            Instantiate(typeofBlockToInstance,new Vector3(transform.position.x,transform.position.y + i,transform.position.z),transform.rotation);
-        }
+            
+            setHightChange();
+            //float platformLength = setPlatfromPositionAndLength()
+            createPlatform(setPlatfromPositionAndLength());
+            //transform.position = new Vector3(transform.position.x,yInitPosition,transform.position.z);
         }
     }
 
