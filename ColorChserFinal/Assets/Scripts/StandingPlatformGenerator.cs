@@ -16,11 +16,6 @@ public class StandingPlatformGenerator : MonoBehaviour
     public float platformMinLength;
     public float platformMaxLength;
 
-    //private float hightChange;
-    private float maxHightChange;
-    
-    private float numOfBlocksCreated;
-
     [Range(0.0f, 1.0f)]
     public float chanceForGreen;
     [Range(0.0f, 1.0f)]
@@ -29,10 +24,13 @@ public class StandingPlatformGenerator : MonoBehaviour
     public float chanceForBlack;
 
     private int[] chancesArr;
+    private bool creatingBlacks;
+
+    //private PlatfromControl createdPlatform;
     
     void Start()
     {
-        numOfBlocksCreated = 0;
+        creatingBlacks = false;
         yInitPosition = transform.position.y;
         chancesArr = new int[] {(int)(chanceForGreen*10.0f),(int)(chanceForRed*10.0f),(int)(chanceForBlack*10.0f)};
     }
@@ -52,14 +50,41 @@ public class StandingPlatformGenerator : MonoBehaviour
     }
 
     void createPlatform(float length){
+        length = (int)length;
         int typeofBlockToInstance = GetRandomWeightedIndex(chancesArr);
-        //platformTypes[Random.Range(0,platformTypes.Length)];
         for(int i = 0; i < length; i++){
-        Instantiate(platformTypes[typeofBlockToInstance],new Vector3(transform.position.x,transform.position.y + i,transform.position.z),transform.rotation);
+            GameObject createdPlatform = Instantiate(platformTypes[typeofBlockToInstance],new Vector3(transform.position.x,transform.position.y + i,transform.position.z),transform.rotation);
+            if (i == (length - 1)){
+                Debug.Log("top");
+                createdPlatform.GetComponent<PlatfromControl>().SetTopPlatform();
+            }
         }
     }
 
-    public int GetRandomWeightedIndex(int[] weights)
+    public void onBlackPlatfromTouched(int secondsToApply){
+        if (!creatingBlacks){
+            creatingBlacks = true;
+            StartCoroutine(createBlackPlatformForSeconds(secondsToApply));
+        }
+    }
+
+    private IEnumerator createBlackPlatformForSeconds(int secondsToAplly){
+        GameObject[] createdPlatform = GameObject.FindGameObjectsWithTag("ColordPlatfrom");
+        for (int i = 0; i < createdPlatform.Length; ++i){
+            if (createdPlatform[i] != null ){
+                createdPlatform[i].GetComponent<SpriteRenderer>().color =  Color.black;
+            }
+        }
+        yield return new WaitForSeconds(secondsToAplly);
+        for (int i = 0; i < createdPlatform.Length; ++i){
+            if (createdPlatform[i] != null){
+                createdPlatform[i].GetComponent<PlatfromControl>().setInitColor();
+            }
+        }
+        creatingBlacks = false;
+    }
+
+    private int GetRandomWeightedIndex(int[] weights)
 {
     int weightSum = 0;
     for (int i = 0; i < weights.Length; ++i)
@@ -76,7 +101,6 @@ public class StandingPlatformGenerator : MonoBehaviour
         }
          weightSum -= weights[index++];
     }
- 
     return index;
 }
 

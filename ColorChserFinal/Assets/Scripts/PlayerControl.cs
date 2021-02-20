@@ -68,10 +68,13 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    public void setJumpForce(float force){
+        jumpForce += force;
+    }
+
     private IEnumerator IncreaseSpeed(){
         while(true){
             moveSpeed += speedIncreamentFactor;
-            Debug.Log("speed");
             yield return new WaitForSeconds(1);
         }
     }

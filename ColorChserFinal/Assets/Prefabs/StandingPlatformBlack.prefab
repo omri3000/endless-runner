@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8540871971725228788}
   - component: {fileID: 8540871971725228789}
   - component: {fileID: 8631879866176454714}
+  - component: {fileID: 7439174707155909480}
   m_Layer: 8
   m_Name: StandingPlatformBlack
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8540871971725228790}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 6.030403}
+  m_LocalPosition: {x: 0, y: 1, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -123,3 +124,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7439174707155909480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8540871971725228790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ed0fc185ee7947ada35c4002ff21674, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTopPlatfrom: 0
+  isColided: 0
+  timeForBlackEffect: 3
+  standingPlatformGenerator: {fileID: 0}
