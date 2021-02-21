@@ -14,14 +14,11 @@ public class PlayerControl : MonoBehaviour
     public float moveSpeed;
     public float speedIncreamentFactor;
     public float jumpForce;
-    public float jumpTime;
+    public float maxJumpForce;
     public LayerMask whatIsGround; 
 
     private bool _isGrounded;
     private bool _isJumping;
-    private float _jumpTimeCounter;
-    
-
 
     // Start is called before the first frame update
     void Start()
@@ -43,16 +40,16 @@ public class PlayerControl : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space) && _isGrounded){
 
             _isJumping = true;
-            _jumpTimeCounter = jumpTime;
             myRigidBody.velocity = new Vector2(moveSpeed, jumpForce);
         }
 
         if(Input.GetKey(KeyCode.Space) && _isJumping){
-            if(_jumpTimeCounter>0){
+            if(jumpForce < maxJumpForce){
+                jumpForce += 0.2f;
                 myRigidBody.velocity = new Vector2(moveSpeed, jumpForce);
-                _jumpTimeCounter -= Time.deltaTime; 
             }else{
                 _isJumping = false;
+                jumpForce = 12.0f;
             }
         }
 

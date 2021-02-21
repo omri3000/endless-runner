@@ -1045,7 +1045,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 4
   speedIncreamentFactor: 0.01
-  jumpForce: 8
+  jumpForce: 12
   jumpTime: 0.3
   whatIsGround:
     serializedVersion: 2
