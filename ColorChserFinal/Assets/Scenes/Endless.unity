@@ -1046,7 +1046,7 @@ MonoBehaviour:
   moveSpeed: 4
   speedIncreamentFactor: 0.01
   jumpForce: 12
-  jumpTime: 0.3
+  maxJumpForce: 14
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256

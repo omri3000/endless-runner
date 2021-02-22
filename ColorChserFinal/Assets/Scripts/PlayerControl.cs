@@ -38,7 +38,6 @@ public class PlayerControl : MonoBehaviour
         myRigidBody.velocity = new Vector2((moveSpeed + speedIncreamentFactor*Time.deltaTime),myRigidBody.velocity.y);
 
         if(Input.GetKeyDown(KeyCode.Space) && _isGrounded){
-
             _isJumping = true;
             myRigidBody.velocity = new Vector2(moveSpeed, jumpForce);
         }
@@ -53,11 +52,16 @@ public class PlayerControl : MonoBehaviour
             }
         }
 
+        if(Input.GetKeyUp(KeyCode.Space) && _isJumping){
+           jumpForce = 12.0f; 
+           _isJumping = false;
+        }
+
         myAnimator.SetFloat("Speed",myRigidBody.velocity.x);
         myAnimator.SetBool("Grounded",_isGrounded);
     }
 
-    private void OnCollisionEnter2D(Collision2D other) {
+    public void OnCollisionEnter2D(Collision2D other) {
         if(other.collider.name == "BottomBoundary"){
             scoreManager.scoreIncreasing = false;
             StopCoroutine(speedIncreaseCoroutine);
