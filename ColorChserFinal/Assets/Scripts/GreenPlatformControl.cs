@@ -8,14 +8,14 @@ public class GreenPlatformControl : PlatfromControl
     public float jumpForceReduceValue; 
 
     public override void OnCollisionStay2D(Collision2D other) { 
-        if (other.collider.name == "Player" && isTopPlatfrom && other.collider.transform.position.y > transform.position.y && !isColided){
+        if (other.collider.name == "Player" && other.collider.transform.position.y > transform.position.y && !isColided){
             isColided = true;
             FindObjectOfType<PlayerControl>().setJumpForce(jumpForceReduceValue);
         }
     }
 
     public override void OnCollisionExit2D(Collision2D other) {
-        if (other.collider.name == "Player" && isTopPlatfrom && isColided){
+        if (other.collider.name == "Player" && isColided){
             isColided = false;
             FindObjectOfType<PlayerControl>().setJumpForce(-jumpForceReduceValue);
         }

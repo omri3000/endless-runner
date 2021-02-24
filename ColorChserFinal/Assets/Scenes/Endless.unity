@@ -221,7 +221,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3449278}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.66, y: -4.64, z: -10.7109375}
+  m_LocalPosition: {x: -0.66, y: -5.39, z: -10.7109375}
   m_LocalScale: {x: 27.446041, y: 0.033, z: 1}
   m_Children: []
   m_Father: {fileID: 519420032}
@@ -538,15 +538,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8a89ddd6f783472191d76d065e9cbf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  platforms:
-  - {fileID: 5447153035419106209, guid: 980474faf82cec94dad6398daa3d0f4b, type: 3}
-  - {fileID: 5175244394705064756, guid: e9c904b0a3dbc4c4a95798ea5be1c091, type: 3}
-  - {fileID: 5227713800843600838, guid: 2bdeae211c4d1274fa8c92435ecd2c28, type: 3}
+  platformTypes:
+  - {fileID: 3783613905407598878, guid: 322516d664c2f47ff9aae3b3dba9451f, type: 3}
+  - {fileID: 8540871971725228790, guid: 2b37eed7e9f5e4ca1a24c0bbd0b8a814, type: 3}
+  - {fileID: 8540871971725228790, guid: 995b7ac9cc0af4e2783b55f44c3ebd3f, type: 3}
   generatingPoint: {fileID: 1819348926}
   distanceBetween: 1
-  platformWidth: 0
-  distanceBetweenMax: 2.8
-  distanceBetweenMin: 1
+  platfromMinHorizontalDistance: 0
+  platfromMaxHorizontalDistance: 2
+  platformMaxVerticalDistance: 2
+  platformMinVerticalDistance: 0
+  platformMinLength: 2
+  platformMaxLength: 6
+  chanceForGreen: 0.53
+  chanceForRed: 0.128
+  chanceForBlack: 0.044
 --- !u!4 &342869787
 Transform:
   m_ObjectHideFlags: 0
@@ -1048,10 +1054,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b910efd304e7484193c099a14075f3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 4
-  speedIncreamentFactor: 0.01
+  moveSpeed: 5
+  speedIncreamentFactor: 0.1
   jumpForce: 12
-  maxJumpForce: 14
+  maxJumpForce: 15
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256
@@ -2304,61 +2310,3 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2056492418}
   m_CullTransparentMesh: 0
---- !u!1 &2119198954
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2119198956}
-  - component: {fileID: 2119198955}
-  m_Layer: 0
-  m_Name: StandingPlatformGenerator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &2119198955
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2119198954}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fb4291429fdb4186a9cbddc6526ce59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  platformTypes:
-  - {fileID: 3783613905407598878, guid: 322516d664c2f47ff9aae3b3dba9451f, type: 3}
-  - {fileID: 8540871971725228790, guid: 2b37eed7e9f5e4ca1a24c0bbd0b8a814, type: 3}
-  - {fileID: 8540871971725228790, guid: 995b7ac9cc0af4e2783b55f44c3ebd3f, type: 3}
-  generatingPoint: {fileID: 1819348926}
-  distanceBetween: 0
-  platfromMinHorizontalDistance: 1
-  platfromMaxHorizontalDistance: 3
-  platformMaxVerticalDistance: 3
-  platformMinVerticalDistance: 1
-  platformMinLength: 1
-  platformMaxLength: 5
-  chanceForGreen: 0.1
-  chanceForRed: 0.1
-  chanceForBlack: 0
---- !u!4 &2119198956
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2119198954}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

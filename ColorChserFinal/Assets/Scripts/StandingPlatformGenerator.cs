@@ -54,10 +54,6 @@ public class StandingPlatformGenerator : MonoBehaviour
         int typeofBlockToInstance = GetRandomWeightedIndex(chancesArr);
         for(int i = 0; i < length; i++){
             GameObject createdPlatform = Instantiate(platformTypes[typeofBlockToInstance],new Vector3(transform.position.x + i,transform.position.y,transform.position.z),transform.rotation);
-            if (i == (length - 1)){
-                Debug.Log("top");
-                createdPlatform.GetComponent<PlatfromControl>().SetTopPlatform();
-            }
         }
     }
 

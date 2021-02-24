@@ -4,30 +4,116 @@ using UnityEngine;
 
 public class PlatformGenerator : MonoBehaviour
 {
-    // public GameObject platform;
-    public GameObject[] platforms;
+    public GameObject[] platformTypes;
     public Transform generatingPoint;
     public float distanceBetween;
-    public float platformWidth;
+    private float yInitPosition;
 
-    public float distanceBetweenMax;
-    public float distanceBetweenMin;
-    // Start is called before the first frame update
+    public float platfromMinHorizontalDistance;
+    public float platfromMaxHorizontalDistance;
+    public float platformMaxVerticalDistance;
+    public float platformMinVerticalDistance;
+    public float platformMinLength;
+    public float platformMaxLength;
+
+    [Range(0.0f, 1.0f)]
+    public float chanceForGreen;
+    [Range(0.0f, 1.0f)]
+    public float chanceForRed;
+    [Range(0.0f, 1.0f)]
+    public float chanceForBlack;
+
+    private int[] chancesArr;
+    private bool creatingBlacks;
+    
     void Start()
     {
-        platformWidth = platforms[0].GetComponent<BoxCollider2D>().size.x;
+        creatingBlacks = false;
+        yInitPosition = transform.position.y;
+        chancesArr = new int[] {(int)(chanceForGreen*10.0f),(int)(chanceForRed*10.0f),(int)(chanceForBlack*10.0f)};
     }
 
-    // Update is called once per frame
+    float setHightChange(){
+        float hightChange = transform.position.y + Random.Range(platformMinVerticalDistance,platformMaxVerticalDistance);
+        if (hightChange > platformMaxVerticalDistance || hightChange < platformMinVerticalDistance){
+            hightChange = 0;
+        }
+        return hightChange;
+    }
+
+    float setPlatfromPositionAndLength(float hightChange){
+        distanceBetween = Random.Range(platfromMinHorizontalDistance,platfromMaxHorizontalDistance);
+        float platfromLength = Random.Range(platformMinLength,platformMaxLength);
+        distanceBetween += platfromLength;
+        transform.position = new Vector3(transform.position.x + distanceBetween,hightChange,transform.position.z);
+        return platfromLength;
+    }
+
+    void createPlatform(float length){
+        length = (int)length;
+        int typeofBlockToInstance = GetRandomWeightedIndex(chancesArr);
+        for(int i = 0; i < length; i++){
+            GameObject createdPlatform = Instantiate(platformTypes[typeofBlockToInstance],new Vector3(transform.position.x + i,transform.position.y,transform.position.z),transform.rotation);
+        }
+    }
+
+    public void onBlackPlatfromTouched(int secondsToApply){
+        if (!creatingBlacks){
+            creatingBlacks = true;
+            StartCoroutine(createBlackPlatformForSeconds(secondsToApply));
+        }
+    }
+
+    private IEnumerator createBlackPlatformForSeconds(int secondsToAplly){
+        GameObject[] createdPlatform = GameObject.FindGameObjectsWithTag("ColordPlatfrom");
+        for (int i = 0; i < createdPlatform.Length; ++i){
+            if (createdPlatform[i] != null ){
+                createdPlatform[i].GetComponent<SpriteRenderer>().color =  Color.black;
+            }
+        }
+        yield return new WaitForSeconds(secondsToAplly);
+        for (int i = 0; i < createdPlatform.Length; ++i){
+            if (createdPlatform[i] != null){
+                createdPlatform[i].GetComponent<PlatfromControl>().setInitColor();
+            }
+        }
+        creatingBlacks = false;
+    }
+
+    private int GetRandomWeightedIndex(int[] weights)
+{
+    int weightSum = 0;
+    for (int i = 0; i < weights.Length; ++i)
+    {
+        weightSum += weights[i];
+    }
+    int index = 0;
+    int lastIndex = weights.Length - 1;
+    while (index < lastIndex)
+    {
+        if (Random.Range(0, weightSum) < weights[index])
+        {
+            return index;
+        }
+         weightSum -= weights[index++];
+    }
+    return index;
+}
+
     void Update()
     {
         if (transform.position.x < generatingPoint.position.x){
+            createPlatform(setPlatfromPositionAndLength(setHightChange()));
+        }
+
+        /*if (transform.position.x < generatingPoint.position.x){
             distanceBetween = Random.Range(distanceBetweenMin,distanceBetweenMax);
             transform.position = new Vector3(transform.position.x + platformWidth + distanceBetween, distanceBetween,transform.position.z);
 
             var RandomPlatform = Random.Range(0, platforms.Length);
 
            Instantiate(platforms[RandomPlatform],transform.position,transform.rotation);
-        }
+        }*/
     }
+
 }

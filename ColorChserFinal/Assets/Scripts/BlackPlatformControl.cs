@@ -6,17 +6,17 @@ public class BlackPlatformControl : PlatfromControl
 {
 
     public int timeForBlackEffect;
-    public StandingPlatformGenerator standingPlatformGenerator;
+    public PlatformGenerator platformGenerator;
 
     // Start is called before the first frame update
     void Start()
     {
-        standingPlatformGenerator = FindObjectOfType<StandingPlatformGenerator>();
+        platformGenerator = FindObjectOfType<PlatformGenerator>();
     }
 
     public override void OnCollisionStay2D(Collision2D other) {
         if (other.collider.name == "Player"){
-            standingPlatformGenerator.onBlackPlatfromTouched(timeForBlackEffect);
+            platformGenerator.onBlackPlatfromTouched(timeForBlackEffect);
         }
     }
     // Update is called once per frame

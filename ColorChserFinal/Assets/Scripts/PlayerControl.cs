@@ -70,7 +70,8 @@ public class PlayerControl : MonoBehaviour
     }
 
     public void setJumpForce(float force){
-        jumpForce += force;
+        Debug.Log("added to jump force: " + force);
+        maxJumpForce += force;
     }
 
     private IEnumerator IncreaseSpeed(){
