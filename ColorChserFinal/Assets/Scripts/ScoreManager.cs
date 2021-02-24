@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -19,12 +20,19 @@ public class ScoreManager : MonoBehaviour
         if(PlayerPrefs.GetFloat("HighScore") != 0){
          _hiScoreCount = PlayerPrefs.GetFloat("HighScore");
         }
+
+        runFinalScore.gameObject.SetActive(false);
     }
 
     public void endOfRunDisplay(){
         runFinalScore.text = "Your Score : " + Mathf.Round(_scoreCount);
+        runFinalScore.gameObject.SetActive(true);
         scoreText.enabled = false;
         highScoreText.enabled = false;
+        if(Input.anyKey){
+            SceneManager.LoadScene(0);
+            runFinalScore.gameObject.SetActive(false);
+        }
     }
 
 
