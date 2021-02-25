@@ -69,14 +69,12 @@ public class PlatformGenerator : MonoBehaviour
         for (int i = 0; i < createdPlatform.Length; ++i){
             if (createdPlatform[i] != null ){
                 createdPlatform[i].GetComponent<SpriteRenderer>().color =  Color.black;
-                createdPlatform[i].GetComponent<PlatfromControl>().isBlack = true;
             }
         }
         yield return new WaitForSeconds(secondsToAplly);
         for (int i = 0; i < createdPlatform.Length; ++i){
             if (createdPlatform[i] != null){
                 createdPlatform[i].GetComponent<PlatfromControl>().setInitColor();
-                createdPlatform[i].GetComponent<PlatfromControl>().isBlack = false;
 
             }
         }

@@ -137,4 +137,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isColided: 0
-  jumpForceReduceValue: 13
+  jumpForceDecreaseValue: 13
