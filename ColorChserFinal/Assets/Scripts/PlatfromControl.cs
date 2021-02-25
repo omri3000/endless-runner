@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class PlatfromControl : MonoBehaviour
 {
-        public bool isColided = false;
+    public bool isColided = false;
+
+    public bool isBlack = false;
 
     public virtual void OnCollisionStay2D(Collision2D other) {
         Debug.Log(other.collider.name);

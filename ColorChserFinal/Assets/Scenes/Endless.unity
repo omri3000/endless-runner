@@ -543,16 +543,16 @@ MonoBehaviour:
   - {fileID: 8540871971725228790, guid: 2b37eed7e9f5e4ca1a24c0bbd0b8a814, type: 3}
   - {fileID: 8540871971725228790, guid: 995b7ac9cc0af4e2783b55f44c3ebd3f, type: 3}
   generatingPoint: {fileID: 1819348926}
-  distanceBetween: 1
+  distanceBetween: 0.9
   platfromMinHorizontalDistance: 0
   platfromMaxHorizontalDistance: 2
   platformMaxVerticalDistance: 2
   platformMinVerticalDistance: 0
   platformMinLength: 2
   platformMaxLength: 6
-  chanceForGreen: 0.53
-  chanceForRed: 0.128
-  chanceForBlack: 0.044
+  chanceForGreen: 0.5
+  chanceForRed: 0.1
+  chanceForBlack: 0.2
 --- !u!4 &342869787
 Transform:
   m_ObjectHideFlags: 0
@@ -1031,10 +1031,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1394269757}
   - component: {fileID: 1394269756}
+  - component: {fileID: 1394269759}
   - component: {fileID: 1394269755}
   - component: {fileID: 1394269753}
   - component: {fileID: 1394269758}
-  - component: {fileID: 1394269759}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -1141,8 +1141,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1394269752}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.26, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -6.26, y: -0.0175, z: 0}
+  m_LocalScale: {x: 1, y: 1.0150514, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -1179,8 +1179,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.58203125}
-  m_Size: {x: 0.8046875, y: 1.1640625}
+  m_Offset: {x: 0, y: 0.55678856}
+  m_Size: {x: 0.8, y: 1.2145478}
   m_Direction: 0
 --- !u!1 &1414731744
 GameObject:

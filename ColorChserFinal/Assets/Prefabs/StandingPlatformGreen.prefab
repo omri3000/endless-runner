@@ -136,6 +136,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf009b9116cc341b780c0147272cbe10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isTopPlatfrom: 0
   isColided: 0
-  jumpForceReduceValue: 5
+  isBlack: 0
+  jumpForceReduceValue: 18

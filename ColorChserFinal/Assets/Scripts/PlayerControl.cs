@@ -19,6 +19,7 @@ public class PlayerControl : MonoBehaviour
 
     private bool _isGrounded;
     private bool _isJumping;
+    private float _defMaxJump;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,7 @@ public class PlayerControl : MonoBehaviour
         scoreManager = FindObjectOfType<ScoreManager>();
 
         speedIncreaseCoroutine = StartCoroutine(IncreaseSpeed());
+        _defMaxJump = maxJumpForce;
     }
 
     // Update is called once per frame
@@ -70,8 +72,11 @@ public class PlayerControl : MonoBehaviour
     }
 
     public void setJumpForce(float force){
-        Debug.Log("added to jump force: " + force);
-        maxJumpForce += force;
+        maxJumpForce = force;
+    }
+
+    public void setDefJumpForce(){
+        maxJumpForce = _defMaxJump;
     }
 
     private IEnumerator IncreaseSpeed(){
