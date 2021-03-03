@@ -10,6 +10,7 @@ public class PlayerControl : MonoBehaviour
     private Animator myAnimator;
     private ScoreManager scoreManager;
     private Coroutine speedIncreaseCoroutine;
+    private SoundManager soundManager;
 
     public float moveSpeed;
     public float speedIncreamentFactor;
@@ -28,9 +29,11 @@ public class PlayerControl : MonoBehaviour
         myCollider = GetComponent<Collider2D>();
         myAnimator = GetComponent<Animator>();
         scoreManager = FindObjectOfType<ScoreManager>();
+        soundManager = FindObjectOfType<SoundManager>();
 
         speedIncreaseCoroutine = StartCoroutine(IncreaseSpeed());
         _defMaxJump = maxJumpForce;
+        soundManager.playBGSound();
     }
 
     // Update is called once per frame
@@ -40,6 +43,7 @@ public class PlayerControl : MonoBehaviour
         myRigidBody.velocity = new Vector2((moveSpeed + speedIncreamentFactor*Time.deltaTime),myRigidBody.velocity.y);
 
         if(Input.GetKeyDown(KeyCode.Space) && _isGrounded){
+            soundManager.playJumpSound();
             _isJumping = true;
             myRigidBody.velocity = new Vector2(moveSpeed, jumpForce);
         }
